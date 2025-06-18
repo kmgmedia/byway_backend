@@ -1,22 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Review = require("../models/reviews.models");
+const {
+  getReviews,
+  setReview,
+  updateReview,
+  deleteReview,
+} = require("../controllers/reviewController");
 
-router.post("/", async (req, res) => {
-  try {
-    const review = await Review.create(req.body);
-    res.status(201).json(review);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    res.status(201).json({ message: "Working" });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
+router.route("/").get(getReviews).post(setReview);
+router.route("/:id").put(updateReview).delete(deleteReview);
 
 module.exports = router;
