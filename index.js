@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/api/reviews", reviewRoutes);
+// app.use("/api/product", productRoutes);
 
 // Error Handler
 app.use(errorHandler);
