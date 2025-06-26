@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const reviewRoutes = require("./routes/routes.reviews");
 const productRoutes = require("./routes/routes.products");
+const testimonialRoutes = require("./routes/routes.testimonials");
 const { errorHandler } = require("./middleware/middleware/errorMiddleware");
 
 dotenv.config();
@@ -18,6 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 // Routes
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+
+
 
 // Error Handler
 app.use(errorHandler);

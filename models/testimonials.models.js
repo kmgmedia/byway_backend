@@ -6,8 +6,9 @@ const testimonialSchema = new mongoose.Schema(
     testimonialDetails: { type: String, required: true },
     testimonialImage: { type: String },
     testimonialText: { type: String, required: true, minlength: 10 },
+    reviewDate: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("testimonial", testimonialSchema);
+module.exports = mongoose.model("Testimonial", testimonialSchema);

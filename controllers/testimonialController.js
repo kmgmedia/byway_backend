@@ -1,9 +1,9 @@
 const asyncHandler = require("express-async-handler");
-const Review = require("../models/testimonials.models");
+const Testimonial = require("../models/testimonials.models");
 
 // @desc Get all testimonials
 exports.getTestimonials = asyncHandler(async (req, res) => {
-  const testimonials = await testimonials.find();
+  const testimonials = await Testimonial.find();
   res.status(200).json(testimonials);
 });
 
@@ -17,7 +17,7 @@ exports.setTestimonial = asyncHandler(async (req, res) => {
     throw new Error("Please fill in all required fields");
   }
 
-  const testimonial = await testimonial.create({
+  const testimonial = await Testimonial.create({
     title,
     testimonialDetails,
     testimonialImage,
@@ -35,7 +35,7 @@ exports.updateTestimonial = asyncHandler(async (req, res) => {
     throw new Error("Testimonial not found");
   }
 
-  const updatedTestimonial = await testimonial.findByIdAndUpdate(
+  const updatedTestimonial = await Testimonial.findByIdAndUpdate(
     req.params.id,
     req.body,
     { new: true }
@@ -45,7 +45,7 @@ exports.updateTestimonial = asyncHandler(async (req, res) => {
 
 // @desc Delete a testimonial
 exports.deleteTestimonial = asyncHandler(async (req, res) => {
-  const testimonial = await testimonial.findById(req.params.id);
+  const testimonial = await Testimonial.findById(req.params.id);
   if (!testimonial) {
     res.status(404);
     throw new Error("Testimonial not found");
