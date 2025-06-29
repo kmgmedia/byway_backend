@@ -9,10 +9,26 @@ exports.getProducts = asyncHandler(async (req, res) => {
 
 // @desc Create a new product
 exports.setProduct = asyncHandler(async (req, res) => {
-  const { title, productDetails, productImage, productText, productMore, rating, ratingCount, productAmount  } =
-    req.body;
+  const {
+    title,
+    productDetails,
+    productImage,
+    productText,
+    productMore,
+    rating,
+    ratingCount,
+    productAmount,
+  } = req.body;
 
-  if (!title || !productDetails || !productText || !productMore || !productAmount || !ratingCount || !rating ) {
+  if (
+    !title ||
+    !productDetails ||
+    !productText ||
+    !productMore ||
+    !productAmount ||
+    !ratingCount ||
+    !rating
+  ) {
     res.status(400);
     throw new Error("Please fill in all required fields");
   }
