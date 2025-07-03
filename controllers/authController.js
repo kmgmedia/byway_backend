@@ -3,10 +3,17 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.models");
 
-// Generate JWT
+
+
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
+
+
+
+
+
 
 // @desc Register new user
 exports.registerUser = asyncHandler(async (req, res) => {
@@ -24,7 +31,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
   }
 
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt); // lowercase 'salt'
+  const hashedPassword = await bcrypt.hash(password, salt);
 
   const user = await User.create({
     name,
@@ -58,3 +65,30 @@ exports.loginUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid credentials");
   }
 });
+
+
+// @desc Forget Password
+exports.changePassword = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  const { currentPassword, newPassword } = req.body;
+
+  if (!user) {res.status(404);
+    throw new Error("User not found");
+  }
+
+  const isMatch = await bcrypt.compare(currentPassword, user.password);
+  if (!isMatch) {res.status(400);
+    throw new Error("Current password is incorrect");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(newPassword, salt);
+
+  await user.save();
+
+  res.status(200).json({ message: "Password changed successfully" });
+});
+
+
+
