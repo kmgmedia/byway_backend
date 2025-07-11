@@ -74,3 +74,19 @@ exports.deleteProduct = asyncHandler(async (req, res) => {
   await product.deleteOne();
   res.status(200).json({ message: "Product deleted successfully" });
 });
+
+
+exports.searchProducts = asyncHandler(async (req, res) => {
+  const { keyword } = req.query;
+
+  if (!keyword) {
+    return res.status(400).json({ message: "Search keyword is required" });
+  }
+
+  const products = await Product.find({
+    name: { $regex: keyword, $options: "i" },
+  });
+
+  res.status(200).json(products);
+});
+
