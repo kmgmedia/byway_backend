@@ -22,7 +22,7 @@ cron.schedule("0 0 * * *", async () => {
     }
 
     if (expiredUsers.length) {
-      console.log(`✅ Deleted ${expiredUsers.length} expired user(s)`);
+      console.log(`Deleted ${expiredUsers.length} expired user(s)`);
     }
   } catch (err) {
     console.error("Cron job failed:", err.message);

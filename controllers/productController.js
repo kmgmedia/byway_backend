@@ -70,6 +70,7 @@ exports.deleteProduct = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Product not found");
   }
+  
 
   await product.deleteOne();
   res.status(200).json({ message: "Product deleted successfully" });
